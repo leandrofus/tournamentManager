@@ -1,0 +1,6 @@
+<h2>Partidos Programados</h2>
+<ul>
+  {{#each partidos}}
+    <li>{{this.jugadorLocal.nombre}} vs {{this.jugadorVisitante.nombre}} - {{this.fecha}}</li>
+  {{/each}}
+</ul>
