@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Asegúrate de que este es el archivo de conexión
-const Liga = require('./Liga'); // Importa el modelo relacionado
+const sequelize = require('../config/database');
 
 const Jugador = sequelize.define('Jugador', {
   nombre: {
@@ -13,7 +12,5 @@ const Jugador = sequelize.define('Jugador', {
   }
 });
 
-// Definir la relación muchos a muchos
-// Jugador.belongsToMany(Liga, { through: 'LigaJugadores' });
 
 module.exports = Jugador;
