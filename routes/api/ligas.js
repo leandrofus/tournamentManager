@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Liga = require('../models/Liga');
-const Jugador = require('../models/Jugador');
-const Partido = require('../models/Partido');
+const Jugador = require('../../models/Jugador');
+const Partido = require('../../models/Partido');
+const Liga = require('../../models/Liga');
 
 router.post('/', async (req, res) => {
   try {
@@ -10,18 +10,18 @@ router.post('/', async (req, res) => {
       nombre: req.body.nombre,
       fechaInicio: req.body.fechaInicio,
     });
-
-    const jugadores = await Jugador.findAll({
-      where: { id: req.body.jugadoresIds }
-    });
-
-    await nuevaLiga.addJugadores(jugadores); 
     res.status(201).json(nuevaLiga);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
+router.post('/addPlayer', async (req, res) => {
+  const jugadores = await Jugador.findAll({
+    where: { id: req.body.jugadoresIds }
+  });
 
+  await nuevaLiga.addJugadors(jugadores); 
+})
 router.post('/:ligaId/generar-partidos', async (req, res) => {
   try {
     const liga = await Liga.findByPk(req.params.ligaId, { include: Jugador });

@@ -1,21 +1,19 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const sequelize = require('../config/database'); // Asegúrate de que este es el archivo de conexión
+const Liga = require('./Liga'); // Importa el modelo relacionado
 
 const Jugador = sequelize.define('Jugador', {
   nombre: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   ranking: {
     type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-  edad: {
-    type: DataTypes.INTEGER,
-  },
-  nacionalidad: {
-    type: DataTypes.STRING,
-  },
+    allowNull: false
+  }
 });
+
+// Definir la relación muchos a muchos
+// Jugador.belongsToMany(Liga, { through: 'LigaJugadores' });
 
 module.exports = Jugador;

@@ -4,13 +4,27 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const exphbs = require('express-handlebars');
 const path = require('path');
-
-const Jugador = require('./models/Jugador');
-const Partido = require('./models/Partido');
+const { Jugador, Liga } = require('./models/associations'); // Importa los modelos con relaciones definidas
+var session = require("express-session");
+var SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 dotenv.config();
 
+// configure express
 const app = express();
+app.use(
+  session({
+    secret: "keyboard cat",
+    store: new SequelizeStore({
+      db: sequelize,
+    }),
+    resave: false,
+    proxy: true,
+  })
+);
+
+
+
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', 'hbs');
 
@@ -19,20 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    const datos = {
-        titulo: 'Bienvenido a la Liga de Torneos',
-        descripcion: 'Administra jugadores y partidos en nuestra plataforma',
-    };
-    res.render('home', datos);
-});
-app.get('/jugadores', async (req, res) => {
-    const jugadores = await Jugador.findAll();
-    const jugadoresPlain = jugadores.map(jugador => jugador.get({ plain: true }));
-    console.log(jugadoresPlain);
 
-    res.render('jugadores', { jugadores: jugadoresPlain });
-});
 
 const port = process.env.PORT || 3000;
 
@@ -43,9 +44,10 @@ sequelize.sync({ force: false }).then(() => {
     console.log('Tablas sincronizadas');
 });
 
-app.use('/api/jugadores', require('./routes/jugadores'));
-app.use('/api/partidos', require('./routes/partidos'));
-app.use('/api/ligas', require('./routes/ligas'));
+app.use('/api/jugadores', require('./routes/api/jugadores'));
+app.use('/api/partidos', require('./routes/api/partidos'));
+app.use('/api/ligas', require('./routes/api/ligas'));
+app.use('/', require('./routes/front'));
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);

@@ -1,16 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Partido = require('../models/Partido');
-const Jugador = require('../models/Jugador');
-
-router.get('/', async (req, res) => {
-  try {
-    const partidos = await Partido.findAll({ include: ['jugadorLocal', 'jugadorVisitante'] });
-    res.json(partidos);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+const Partido = require('../../models/Partido');
+const Jugador = require('../../models/Jugador');
 
 router.post('/', async (req, res) => {
   try {

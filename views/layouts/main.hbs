@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{titulo}}</title>
   <link rel="stylesheet" href="/css/estilo.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
   <header>
     <h1>{{titulo}}</h1>
@@ -13,7 +18,19 @@
       <a href="/">Inicio</a>
       <a href="/jugadores">Jugadores</a>
       <a href="/partidos">Partidos</a>
+      <button style="float: right;" id="crearLiga">Crear liga</button>
     </nav>
+    <script>
+      $('#crearLiga').on('click', () => {
+        fetch('/api/ligas', {
+          method: 'post',
+          body: JSON.stringify({ nombre: 'gran copa hitler', fechaInicio: '01/09/2018', jugadoresIds:"2" }),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+      })
+    </script>
   </header>
 
   <main>
@@ -24,4 +41,5 @@
     <p>&copy; 2024 thel2o</p>
   </footer>
 </body>
+
 </html>

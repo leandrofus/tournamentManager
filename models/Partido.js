@@ -15,7 +15,5 @@ const Partido = sequelize.define('Partido', {
   },
 });
 
-Partido.belongsTo(Jugador, { as: 'jugadorLocal' });
-Partido.belongsTo(Jugador, { as: 'jugadorVisitante' });
 
 module.exports = Partido;
