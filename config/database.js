@@ -6,6 +6,7 @@ const sequelize = new Sequelize(
   process.env.DB_USER,
   process.env.DB_PASSWORD,
   {
+    logging: false,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
   }
@@ -13,10 +14,10 @@ const sequelize = new Sequelize(
 
 sequelize.authenticate()
   .then(() => {
-    console.log('Conexión exitosa a la base de datos.');
   })
   .catch((err) => {
-    console.error('No se pudo conectar a la base de datos:', err);
+    console.error('Error', err);
   });
+
 
 module.exports = sequelize;

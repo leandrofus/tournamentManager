@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const { Jugador, Liga } = require('./models/associations'); // Importa los modelos con relaciones definidas
+const associations = require('./models/associations');
 var session = require("express-session");
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
 

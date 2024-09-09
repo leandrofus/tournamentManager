@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 router.get('/jugadores', async (req, res) => {
     const jugadores = await Jugador.findAll();
     const jugadoresPlain = jugadores.map(jugador => jugador.get({ plain: true }));
-    console.log(jugadoresPlain);
 
     res.render('jugadores', { jugadores: jugadoresPlain });
 });
