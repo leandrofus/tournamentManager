@@ -11,8 +11,8 @@ const Partido = require('./models/Partido');
 dotenv.config();
 
 const app = express();
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
+app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }));
+app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -31,7 +31,7 @@ app.get('/jugadores', async (req, res) => {
     const jugadoresPlain = jugadores.map(jugador => jugador.get({ plain: true }));
     console.log(jugadoresPlain);
 
-    res.render('jugadores', { jugadores:jugadoresPlain });
+    res.render('jugadores', { jugadores: jugadoresPlain });
 });
 
 const port = process.env.PORT || 3000;
