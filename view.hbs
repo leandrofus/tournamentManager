@@ -1,0 +1,102 @@
+<div class='container'>
+    <div class="content">
+        <div class="title m-b-md">
+            Customers Manager
+        </div>
+    </div>
+    <form id="customerForm" action="{{#if edit}}/customers/edit/{{userData.email}}{{else}}/customers/add{{/if}}" method="post">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr class="active">
+                        <td>Email</td>
+                        <td>
+                            <input type="hidden" id="originalEmail" value="{{userData.email}}">
+                            <input type="text" id="email" name="email" class="form-control" placeholder="Email" value="{{userData.email}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>FirstName</td>
+                        <td><input type="text" id="firstname" name="firstname" class="form-control" placeholder="FirstName" value="{{userData.firstname}}"></td>
+                    </tr>
+                    <tr class="active">
+                        <td>LastName</td>
+                        <td><input type="text" id="lastname" name="lastname" class="form-control" placeholder="LastName" value="{{userData.lastname}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><input type="text" id="address" name="address" class="form-control" placeholder="Address" value="{{userData.address}}"></td>
+                    </tr>
+                    <tr class="active">
+                        <td>State</td>
+                        <td><input type="text" id="state" name="state" class="form-control" placeholder="State" value="{{userData.state}}"></td>
+                    </tr>
+                    <tr>
+                        <td>ZIP</td>
+                        <td><input type="text" id="zip" name="zip" class="form-control" placeholder="ZIP" value="{{userData.zip}}"></td>
+                    </tr>
+                    <tr class="active">
+                        <td>Order</td>
+                        <td><input type="number" id="order" name="order" class="form-control" placeholder="Order" min="0" value="{{userData.orderid}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Card</td>
+                        <td><input type="text" id="card" name="card" class="form-control" placeholder="Card" value="{{userData.card}}"></td>
+                    </tr>
+                    <tr class="active">
+                        <td>Password</td>
+                        <td><input type="text" id="password" name="password" class="form-control" placeholder="Password" value="{{userData.password}}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="/customers" class="btn btn-info">Cancel</a>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('customerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const originalValues = {
+        email: document.getElementById('originalEmail').value,
+        firstname: "{{userData.firstname}}",
+        lastname: "{{userData.lastname}}",
+        address: "{{userData.address}}",
+        state: "{{userData.state}}",
+        zip: "{{userData.zip}}",
+        order: "{{userData.orderid}}",
+        card: "{{userData.card}}",
+        password: "{{userData.password}}"
+    };
+
+    const formData = new FormData(e.target);
+    const updatedFields = Object.fromEntries([...formData].filter(([key, value]) => value !== originalValues[key]));
+
+    if (!Object.keys(updatedFields).length) {
+        return alert('No se han realizado cambios');
+    }
+
+    try {
+        const response = await fetch(e.target.action, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedFields)
+        });
+
+        const result = await response.json();
+	console.log(result)
+        result.error// ? alert('Error: ' + result.message) : alert('ok')
+    } catch (error) {
+        console.error('Error:', error);
+	const jsonString = JSON.stringify(error, null, 2);
+	const blob = new Blob([jsonString], { type: 'application/json' });
+	const url = URL.createObjectURL(blob);
+	URL.revokeObjectURL(url);
+	window.open(url, '_blank');
+
+        
+    }
+});
+</script>
