@@ -11,24 +11,24 @@ Views.get('/', (req: Request, res: Response) => {
   res.render('home', datos);
 });
 
-Views.get('/jugadores', async (req: Request, res: Response) => {
-  // try {
-  //   const jugadores = await Jugador.find();
-  //   const jugadoresPlain = jugadores.map((jugador: any) => jugador.toObject());
-  //   res.render('jugadores', { jugadores: jugadoresPlain });
-  // } catch (err) {
-  //   res.status(500).json({ message: (err as Error).message });
-  // }
-});
+// Views.get('/jugadores', async (req: Request, res: Response) => {
+//   // try {
+//   //   const jugadores = await Jugador.find();
+//   //   const jugadoresPlain = jugadores.map((jugador: any) => jugador.toObject());
+//   //   res.render('jugadores', { jugadores: jugadoresPlain });
+//   // } catch (err) {
+//   //   res.status(500).json({ message: (err as Error).message });
+//   // }
+// });
 
-Views.get('/partidos', async (req: Request, res: Response) => {
-  // try {
-  //   const partidos = await Partidos.find();
-  //   const partidosPlain = partidos.map((data: any) => data.toObject());
-  //   res.render('partidos', { partidos: partidosPlain });
-  // } catch (err) {
-  //   res.status(500).json({ message: (err as Error).message });
-  // }
-});
+// Views.get('/partidos', async (req: Request, res: Response) => {
+//   // try {
+//   //   const partidos = await Partidos.find();
+//   //   const partidosPlain = partidos.map((data: any) => data.toObject());
+//   //   res.render('partidos', { partidos: partidosPlain });
+//   // } catch (err) {
+//   //   res.status(500).json({ message: (err as Error).message });
+//   // }
+// });
 
 export default Views; 

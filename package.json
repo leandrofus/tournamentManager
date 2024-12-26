@@ -9,15 +9,16 @@
     "express-handlebars": "^8.0.1",
     "express-session": "^1.18.0",
     "mongodb": "^6.12.0",
-    "mongoose": "^8.9.2"
+    "mongoose": "^8.9.2",
+    "morgan": "^1.10.0"
   },
   "name": "tournamentmanager",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "tsc && node copyFiles.js",
-    "start": "node dist/src/server.js",
+    "start": "node dist/src/app.js",
     "prepare": "husky",
     "test": ""
   },

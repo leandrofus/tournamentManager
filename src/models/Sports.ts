@@ -75,7 +75,7 @@ const SportSchema = new mongoose.Schema({
 });
 
 // Helper function to limit array size
-function arrayLimit(val: any) {
+function arrayLimit(val: Array<string>) {
   return val.length <= 10;
 }
 
